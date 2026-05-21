@@ -2,110 +2,150 @@
 
 public class PlayerBehavior : MonoBehaviour
 {
-    // Movement vars
     public float MoveSpeed = 10f;
     public float RotateSpeed = 75f;
-    public float JumpVelocity = 5f;
+    public float JumpForce = 7f;
 
-    // Ground check vars
-    public bool IsOnGround = true;
-    public float GroundCheckRadius = 0.3f;
+    public Transform GroundCheck;
+    public float GroundCheckRadius = 0.25f;
     public LayerMask GroundLayer;
 
-    // Shooting vars
     public GameObject Bullet;
+    public Transform BulletSpawnPoint;
+
     public float BulletSpeed = 100f;
 
-    // Private vars
+    private Rigidbody _rb;
+
     private float _vInput;
     private float _hInput;
 
-    private bool _isJumping;
-    private bool _isShooting;
+    private bool _jumpPressed;
+    private bool _shootPressed;
 
-    private Rigidbody _rb;
+    private bool _isGrounded;
 
     void Start()
     {
         _rb = GetComponent<Rigidbody>();
+
+        _rb.freezeRotation = true;
     }
 
     void Update()
     {
-        // Movement input
-        _vInput = Input.GetAxis("Vertical") * MoveSpeed;
-        _hInput = Input.GetAxis("Horizontal") * RotateSpeed;
+       _vInput = Input.GetAxis("Vertical");
+        _hInput = Input.GetAxis("Horizontal");
 
-        // Ground check
-        Vector3 groundCheckPos = transform.position + Vector3.down * 1f;
-        IsOnGround = Physics.CheckSphere(
-            groundCheckPos,
+       _isGrounded = Physics.CheckSphere(
+            GroundCheck.position,
             GroundCheckRadius,
             GroundLayer
         );
 
-        // Jump input
-        if (Input.GetKeyDown(KeyCode.J) && IsOnGround)
+        if (Input.GetKeyDown(KeyCode.Space) && _isGrounded)
         {
-            _isJumping = true;
+            _jumpPressed = true;
         }
 
-        // Shooting input
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetMouseButtonDown(0))
         {
-            _isShooting = true;
+            _shootPressed = true;
         }
     }
 
     void FixedUpdate()
     {
-        // Move forward/backward
+        Vector3 moveDirection =
+            transform.forward *
+            _vInput *
+            MoveSpeed *
+            Time.fixedDeltaTime;
+
         _rb.MovePosition(
-            transform.position +
-            transform.forward * _vInput * Time.fixedDeltaTime
+            _rb.position + moveDirection
         );
 
-        // Rotate left/right
-        Quaternion angleRot = Quaternion.Euler(
-            Vector3.up * _hInput * Time.fixedDeltaTime
+        Quaternion turnRotation = Quaternion.Euler(
+            0f,
+            _hInput * RotateSpeed * Time.fixedDeltaTime,
+            0f
         );
 
-        _rb.MoveRotation(_rb.rotation * angleRot);
+        _rb.MoveRotation(
+            _rb.rotation * turnRotation
+        );
 
-        // Jump
-        if (_isJumping)
+        if (_jumpPressed)
         {
-            _rb.AddForce(Vector3.up * JumpVelocity, ForceMode.Impulse);
-            _isJumping = false;
-        }
-
-        // Shoot
-        if (_isShooting)
-        {
-            Vector3 spawnPos = transform.position + transform.forward * 1f;
-
-            GameObject newBullet = Instantiate(
-                Bullet,
-                spawnPos,
-                transform.rotation
+            _rb.linearVelocity = new Vector3(
+                _rb.linearVelocity.x,
+                0f,
+                _rb.linearVelocity.z
             );
 
-            Rigidbody bulletRB = newBullet.GetComponent<Rigidbody>();
+             _rb.AddForce(
+                Vector3.up * JumpForce,
+                ForceMode.Impulse
+            );
 
-            bulletRB.linearVelocity = transform.forward * BulletSpeed;
+            _jumpPressed = false;
+        }
 
-            _isShooting = false;
+        if (_shootPressed)
+        {
+            GameObject newBullet = Instantiate(
+                Bullet,
+                BulletSpawnPoint.position,
+                BulletSpawnPoint.rotation
+            );
+
+            Rigidbody bulletRB =
+                newBullet.GetComponent<Rigidbody>();
+
+            if (bulletRB != null)
+            {
+                bulletRB.useGravity = false;
+
+                bulletRB.collisionDetectionMode =
+                    CollisionDetectionMode.ContinuousDynamic;
+
+                bulletRB.interpolation =
+                    RigidbodyInterpolation.Interpolate;
+
+                bulletRB.linearVelocity =
+                    BulletSpawnPoint.forward *
+                    BulletSpeed;
+            }
+
+            Collider playerCollider =
+                GetComponent<Collider>();
+
+            Collider bulletCollider =
+                newBullet.GetComponent<Collider>();
+
+            if (playerCollider != null &&
+                bulletCollider != null)
+            {
+                Physics.IgnoreCollision(
+                    playerCollider,
+                    bulletCollider
+                );
+            }
+
+            _shootPressed = false;
         }
     }
 
-    void OnDrawGizmosSelected()
+     void OnDrawGizmosSelected()
     {
+        if (GroundCheck == null)
+            return;
+
         Gizmos.color = Color.green;
 
-        Vector3 groundCheckPos = transform.position + Vector3.down * 1f;
-
         Gizmos.DrawWireSphere(
-            groundCheckPos,
+            GroundCheck.position,
             GroundCheckRadius
         );
     }

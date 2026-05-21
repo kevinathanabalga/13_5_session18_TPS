@@ -2,10 +2,15 @@ using UnityEngine;
 
 public class BulletBehavior : MonoBehaviour
 {
-    public float OnscreenDelay = 3f;
+    public float LifeTime = 3f;
 
     void Start()
     {
-        Destroy(this.gameObject, OnscreenDelay);
+        Destroy(gameObject, LifeTime);
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        Destroy(gameObject);
     }
 }

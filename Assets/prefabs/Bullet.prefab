@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 549069848482261875}
   - component: {fileID: 8614363265136546312}
   - component: {fileID: 4778066601319322443}
+  - component: {fileID: -9020861048059891662}
+  - component: {fileID: 7088669419316254332}
   m_Layer: 0
   m_Name: Bullet
   m_TagString: Untagged
@@ -121,4 +123,44 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a5d4bb7a5eaa0a43ac769e861e8bfc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnscreenDelay: 3
+  LifeTime: 3
+--- !u!54 &-9020861048059891662
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2560578130160486013}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 1
+  m_Constraints: 0
+  m_CollisionDetection: 2
+--- !u!114 &7088669419316254332
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2560578130160486013}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a5d4bb7a5eaa0a43ac769e861e8bfc9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LifeTime: 3
