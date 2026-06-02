@@ -15,19 +15,27 @@ public class EnemyBehavior : MonoBehaviour
     // Reference to Player
     private Transform _player;
 
+    // Reference to Game Manager
+    private GameBehavior _gameManager;
+
+    // Damage cooldown
+    private float _damageCooldown = 1f;
+    private float _nextDamageTime = 0f;
+
+    private bool _playerDetected = false;
+
     void Start()
     {
-        // Setup NavMesh Agent
         _agent = GetComponent<NavMeshAgent>();
 
-        // Find Player
         GameObject playerObject = GameObject.Find("Player");
         if (playerObject != null)
         {
             _player = playerObject.transform;
         }
 
-        // Setup patrol route
+        _gameManager = FindFirstObjectByType<GameBehavior>();
+
         if (PatrolRoute != null)
         {
             foreach (Transform child in PatrolRoute)
@@ -36,7 +44,6 @@ public class EnemyBehavior : MonoBehaviour
             }
         }
 
-        // Start patrol
         if (_locations.Count > 0)
         {
             MoveToNextPatrolLocation();
@@ -45,17 +52,21 @@ public class EnemyBehavior : MonoBehaviour
 
     void Update()
     {
-        // Check if enemy reached current waypoint
-        if (_locations.Count > 0 &&
-            _agent != null &&
-            _agent.remainingDistance < 0.5f &&
-            !_agent.pathPending)
+        if (_playerDetected && _player != null)
         {
-            MoveToNextPatrolLocation();
+            _agent.destination = _player.position;
+        }
+        else
+        {
+            if (_locations.Count > 0 &&
+                !_agent.pathPending &&
+                _agent.remainingDistance < 0.5f)
+            {
+                MoveToNextPatrolLocation();
+            }
         }
     }
 
-    // Move to next waypoint
     void MoveToNextPatrolLocation()
     {
         if (_locations.Count == 0 || _agent == null)
@@ -69,13 +80,8 @@ public class EnemyBehavior : MonoBehaviour
     {
         if (other.name == "Player")
         {
+            _playerDetected = true;
             Debug.Log("Player detected - attack!");
-
-            // Chase player
-            if (_agent != null && _player != null)
-            {
-                _agent.destination = _player.position;
-            }
         }
     }
 
@@ -83,12 +89,29 @@ public class EnemyBehavior : MonoBehaviour
     {
         if (other.name == "Player")
         {
+            _playerDetected = false;
             Debug.Log("Player out of range, resume patrol");
 
-            // Resume patrol
             if (_locations.Count > 0)
             {
                 MoveToNextPatrolLocation();
+            }
+        }
+    }
+
+    void OnCollisionStay(Collision collision)
+    {
+        if (collision.gameObject.name == "Player")
+        {
+            if (Time.time >= _nextDamageTime)
+            {
+                if (_gameManager != null)
+                {
+                    _gameManager.HP -= 1;
+                    Debug.Log("Player damaged!");
+                }
+
+                _nextDamageTime = Time.time + _damageCooldown;
             }
         }
     }

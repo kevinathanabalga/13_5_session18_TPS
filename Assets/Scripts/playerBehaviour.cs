@@ -34,10 +34,10 @@ public class PlayerBehavior : MonoBehaviour
 
     void Update()
     {
-       _vInput = Input.GetAxis("Vertical");
+        _vInput = Input.GetAxis("Vertical");
         _hInput = Input.GetAxis("Horizontal");
 
-       _isGrounded = Physics.CheckSphere(
+        _isGrounded = Physics.CheckSphere(
             GroundCheck.position,
             GroundCheckRadius,
             GroundLayer
@@ -84,7 +84,7 @@ public class PlayerBehavior : MonoBehaviour
                 _rb.linearVelocity.z
             );
 
-             _rb.AddForce(
+            _rb.AddForce(
                 Vector3.up * JumpForce,
                 ForceMode.Impulse
             );
@@ -137,7 +137,7 @@ public class PlayerBehavior : MonoBehaviour
         }
     }
 
-     void OnDrawGizmosSelected()
+    void OnDrawGizmosSelected()
     {
         if (GroundCheck == null)
             return;
