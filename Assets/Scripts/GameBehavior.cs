@@ -16,6 +16,9 @@ public class GameBehavior : MonoBehaviour
     public TMP_Text ProgressText;
     public Button WinButton;
 
+    // Tambahan (4.6) - Loss Button
+    public Button LossButton;
+
     void Start()
     {
         // Initialize UI display
@@ -25,6 +28,10 @@ public class GameBehavior : MonoBehaviour
         // Sembunyikan win button di awal
         if (WinButton != null)
             WinButton.gameObject.SetActive(false);
+
+        // Sembunyikan loss button di awal
+        if (LossButton != null)
+            LossButton.gameObject.SetActive(false);
     }
 
     // Property untuk Items dengan getter/setter
@@ -42,6 +49,7 @@ public class GameBehavior : MonoBehaviour
                 ProgressText.text = "You've found all the items!";
                 if (WinButton != null)
                     WinButton.gameObject.SetActive(true);
+
                 Time.timeScale = 0f; // Pause game
             }
             else
@@ -61,7 +69,27 @@ public class GameBehavior : MonoBehaviour
             _playerHP = value;
             HealthText.text = "Health: " + _playerHP;
             Debug.LogFormat("Lives: {0}", _playerHP);
+
+            // Tambahan (4.6) - Cek game over
+            if (_playerHP <= 0)
+            {
+                UpdateScene("You want another life with that?");
+
+                if (LossButton != null)
+                    LossButton.gameObject.SetActive(true);
+            }
+            else
+            {
+                ProgressText.text = "Ouch... that's got hurt.";
+            }
         }
+    }
+
+    // Tambahan (4.6) - Method untuk update scene saat win/lose
+    public void UpdateScene(string updatedText)
+    {
+        ProgressText.text = updatedText;
+        Time.timeScale = 0f; // Pause game
     }
 
     // Method untuk restart scene
