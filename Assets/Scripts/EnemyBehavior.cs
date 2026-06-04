@@ -4,31 +4,38 @@ using UnityEngine.AI;
 
 public class EnemyBehavior : MonoBehaviour
 {
+    // Enemy HP
+    public int MaxHP = 3;
+    private int _currentHP;
+
+    // Detection
+    public float DetectionRange = 10f;
+    private bool _playerDetected = false;
+
     // NavMesh Agent
     private NavMeshAgent _agent;
 
-    // Patrol route
+    // Patrol Route
     public Transform PatrolRoute;
     private List<Transform> _locations = new List<Transform>();
     private int _locationIndex = 0;
 
-    // Reference to Player
+    // References
     private Transform _player;
-
-    // Reference to Game Manager
     private GameBehavior _gameManager;
 
-    // Damage cooldown
+    // Damage Cooldown
     private float _damageCooldown = 1f;
     private float _nextDamageTime = 0f;
 
-    private bool _playerDetected = false;
-
     void Start()
     {
+        _currentHP = MaxHP;
+
         _agent = GetComponent<NavMeshAgent>();
 
-        GameObject playerObject = GameObject.Find("Player");
+        GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
+
         if (playerObject != null)
         {
             _player = playerObject.transform;
@@ -52,9 +59,22 @@ public class EnemyBehavior : MonoBehaviour
 
     void Update()
     {
-        if (_playerDetected && _player != null)
+        if (_player == null || _agent == null)
+            return;
+
+        float distanceToPlayer =
+            Vector3.Distance(
+                transform.position,
+                _player.position
+            );
+
+        _playerDetected =
+            distanceToPlayer <= DetectionRange;
+
+        if (_playerDetected)
         {
-            _agent.destination = _player.position;
+            _agent.destination =
+                _player.position;
         }
         else
         {
@@ -72,36 +92,41 @@ public class EnemyBehavior : MonoBehaviour
         if (_locations.Count == 0 || _agent == null)
             return;
 
-        _agent.destination = _locations[_locationIndex].position;
-        _locationIndex = (_locationIndex + 1) % _locations.Count;
+        _agent.destination =
+            _locations[_locationIndex].position;
+
+        _locationIndex =
+            (_locationIndex + 1) %
+            _locations.Count;
     }
 
-    void OnTriggerEnter(Collider other)
+    public void TakeDamage(int damage)
     {
-        if (other.name == "Player")
+        _currentHP -= damage;
+
+        Debug.Log(
+            gameObject.name +
+            " HP: " +
+            _currentHP +
+            "/" +
+            MaxHP
+        );
+
+        if (_currentHP <= 0)
         {
-            _playerDetected = true;
-            Debug.Log("Player detected - attack!");
+            Die();
         }
     }
 
-    void OnTriggerExit(Collider other)
+    void Die()
     {
-        if (other.name == "Player")
-        {
-            _playerDetected = false;
-            Debug.Log("Player out of range, resume patrol");
-
-            if (_locations.Count > 0)
-            {
-                MoveToNextPatrolLocation();
-            }
-        }
+        Debug.Log(gameObject.name + " defeated!");
+        Destroy(gameObject);
     }
 
     void OnCollisionStay(Collision collision)
     {
-        if (collision.gameObject.name == "Player")
+        if (collision.gameObject.CompareTag("Player"))
         {
             if (Time.time >= _nextDamageTime)
             {
@@ -111,8 +136,20 @@ public class EnemyBehavior : MonoBehaviour
                     Debug.Log("Player damaged!");
                 }
 
-                _nextDamageTime = Time.time + _damageCooldown;
+                _nextDamageTime =
+                    Time.time +
+                    _damageCooldown;
             }
         }
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+
+        Gizmos.DrawWireSphere(
+            transform.position,
+            DetectionRange
+        );
     }
 }

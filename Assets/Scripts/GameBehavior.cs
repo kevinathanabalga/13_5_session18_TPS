@@ -8,94 +8,154 @@ public class GameBehavior : MonoBehaviour
     // Variables untuk menyimpan data game
     private int _itemsCollected = 0;
     private int _playerHP = 10;
+
     public int MaxItems = 4;
 
     // Referensi UI
     public TMP_Text HealthText;
     public TMP_Text ItemText;
     public TMP_Text ProgressText;
-    public Button WinButton;
 
-    // Tambahan (4.6) - Loss Button
+    public Button WinButton;
     public Button LossButton;
 
     void Start()
     {
-        // Initialize UI display
-        ItemText.text = "Items: " + _itemsCollected;
-        HealthText.text = "Health: " + _playerHP;
+        // Update UI awal
+        if (ItemText != null)
+            ItemText.text = "Items: " + _itemsCollected;
 
-        // Sembunyikan win button di awal
+        if (HealthText != null)
+            HealthText.text = "Health: " + _playerHP;
+
+        // Sembunyikan tombol
         if (WinButton != null)
             WinButton.gameObject.SetActive(false);
 
-        // Sembunyikan loss button di awal
         if (LossButton != null)
             LossButton.gameObject.SetActive(false);
+
+        // Sembunyikan cursor saat bermain
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+
+        Time.timeScale = 1f;
     }
 
-    // Property untuk Items dengan getter/setter
     public int Items
     {
-        get { return _itemsCollected; }
+        get
+        {
+            return _itemsCollected;
+        }
         set
         {
             _itemsCollected = value;
-            ItemText.text = "Items: " + _itemsCollected;
 
-            // Cek apakah semua item sudah terkumpul
+            if (ItemText != null)
+            {
+                ItemText.text = "Items: " + _itemsCollected;
+            }
+
             if (_itemsCollected >= MaxItems)
             {
-                ProgressText.text = "You've found all the items!";
-                if (WinButton != null)
-                    WinButton.gameObject.SetActive(true);
-
-                Time.timeScale = 0f; // Pause game
+                WinGame();
             }
             else
             {
                 int remaining = MaxItems - _itemsCollected;
-                ProgressText.text = "Item found, only " + remaining + " more to go!";
+
+                if (ProgressText != null)
+                {
+                    ProgressText.text =
+                        "Item found, only " +
+                        remaining +
+                        " more to go!";
+                }
             }
         }
     }
 
-    // Property untuk HP dengan getter/setter
     public int HP
     {
-        get { return _playerHP; }
+        get
+        {
+            return _playerHP;
+        }
         set
         {
             _playerHP = value;
-            HealthText.text = "Health: " + _playerHP;
-            Debug.LogFormat("Lives: {0}", _playerHP);
 
-            // Tambahan (4.6) - Cek game over
+            if (HealthText != null)
+            {
+                HealthText.text =
+                    "Health: " + _playerHP;
+            }
+
+            Debug.Log("Lives: " + _playerHP);
+
             if (_playerHP <= 0)
             {
-                UpdateScene("You want another life with that?");
-
-                if (LossButton != null)
-                    LossButton.gameObject.SetActive(true);
+                LoseGame();
             }
             else
             {
-                ProgressText.text = "Ouch... that's got hurt.";
+                if (ProgressText != null)
+                {
+                    ProgressText.text =
+                        "Ouch... that's got hurt.";
+                }
             }
         }
     }
 
-    // Tambahan (4.6) - Method untuk update scene saat win/lose
-    public void UpdateScene(string updatedText)
+    void WinGame()
     {
-        ProgressText.text = updatedText;
-        Time.timeScale = 0f; // Pause game
+        if (ProgressText != null)
+        {
+            ProgressText.text =
+                "You've found all the items!";
+        }
+
+        if (WinButton != null)
+        {
+            WinButton.gameObject.SetActive(true);
+        }
+
+        Time.timeScale = 0f;
+
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
     }
 
-    // Method untuk restart scene
+    void LoseGame()
+    {
+        if (ProgressText != null)
+        {
+            ProgressText.text =
+                "You want another life with that?";
+        }
+
+        if (LossButton != null)
+        {
+            LossButton.gameObject.SetActive(true);
+        }
+
+        Time.timeScale = 0f;
+
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+    }
+
     public void RestartScene()
     {
-        SceneManager.LoadScene(0);
         Time.timeScale = 1f;
+
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+
+        SceneManager.LoadScene(
+            SceneManager.GetActiveScene().buildIndex
+        );
     }
 }

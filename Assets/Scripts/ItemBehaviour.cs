@@ -2,12 +2,33 @@ using UnityEngine;
 
 public class ItemBehavior : MonoBehaviour
 {
-    void OnCollisionEnter(Collision collision)
+    private GameBehavior gameManager;
+
+    void Start()
     {
-        if (collision.gameObject.name == "Player")
+        gameManager = FindFirstObjectByType<GameBehavior>();
+
+        if (gameManager == null)
         {
-            Destroy(this.transform.gameObject);
+            Debug.LogError(
+                "GameBehavior tidak ditemukan di scene!"
+            );
+        }
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            // Tambah item counter
+            if (gameManager != null)
+            {
+                gameManager.Items++;
+            }
+
             Debug.Log("Item collected!");
+
+            Destroy(gameObject);
         }
     }
 }

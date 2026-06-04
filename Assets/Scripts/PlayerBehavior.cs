@@ -3,7 +3,6 @@
 public class PlayerBehavior : MonoBehaviour
 {
     public float MoveSpeed = 10f;
-    public float RotateSpeed = 75f;
     public float JumpForce = 7f;
 
     public Transform GroundCheck;
@@ -12,7 +11,6 @@ public class PlayerBehavior : MonoBehaviour
 
     public GameObject Bullet;
     public Transform BulletSpawnPoint;
-
     public float BulletSpeed = 100f;
 
     private Rigidbody _rb;
@@ -30,6 +28,7 @@ public class PlayerBehavior : MonoBehaviour
         _rb = GetComponent<Rigidbody>();
 
         _rb.freezeRotation = true;
+        _rb.interpolation = RigidbodyInterpolation.Interpolate;
     }
 
     void Update()
@@ -56,26 +55,21 @@ public class PlayerBehavior : MonoBehaviour
 
     void FixedUpdate()
     {
+        // TPS Movement
         Vector3 moveDirection =
-            transform.forward *
-            _vInput *
-            MoveSpeed *
-            Time.fixedDeltaTime;
+            (
+                transform.forward * _vInput +
+                transform.right * _hInput
+            ).normalized;
 
         _rb.MovePosition(
-            _rb.position + moveDirection
+            _rb.position +
+            moveDirection *
+            MoveSpeed *
+            Time.fixedDeltaTime
         );
 
-        Quaternion turnRotation = Quaternion.Euler(
-            0f,
-            _hInput * RotateSpeed * Time.fixedDeltaTime,
-            0f
-        );
-
-        _rb.MoveRotation(
-            _rb.rotation * turnRotation
-        );
-
+        // Jump
         if (_jumpPressed)
         {
             _rb.linearVelocity = new Vector3(
@@ -92,6 +86,7 @@ public class PlayerBehavior : MonoBehaviour
             _jumpPressed = false;
         }
 
+        // Shoot
         if (_shootPressed)
         {
             GameObject newBullet = Instantiate(
