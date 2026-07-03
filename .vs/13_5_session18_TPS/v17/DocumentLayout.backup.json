@@ -1,0 +1,122 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\backup unity\\3_7_26_3D_Clone\\13_5_session18_TPS\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{DA8B1329-C2F4-845A-674F-AB5704E3816A}|Assembly-CSharp.csproj|d:\\backup unity\\3_7_26_3d_clone\\13_5_session18_tps\\assets\\scripts\\levelmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DA8B1329-C2F4-845A-674F-AB5704E3816A}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\levelmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DA8B1329-C2F4-845A-674F-AB5704E3816A}|Assembly-CSharp.csproj|d:\\backup unity\\3_7_26_3d_clone\\13_5_session18_tps\\assets\\scripts\\camerabehaviour.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DA8B1329-C2F4-845A-674F-AB5704E3816A}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\camerabehaviour.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DA8B1329-C2F4-845A-674F-AB5704E3816A}|Assembly-CSharp.csproj|d:\\backup unity\\3_7_26_3d_clone\\13_5_session18_tps\\assets\\scripts\\playerbehavior.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DA8B1329-C2F4-845A-674F-AB5704E3816A}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\playerbehavior.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DA8B1329-C2F4-845A-674F-AB5704E3816A}|Assembly-CSharp.csproj|d:\\backup unity\\3_7_26_3d_clone\\13_5_session18_tps\\assets\\scripts\\gamebehavior.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DA8B1329-C2F4-845A-674F-AB5704E3816A}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\gamebehavior.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DA8B1329-C2F4-845A-674F-AB5704E3816A}|Assembly-CSharp.csproj|d:\\backup unity\\3_7_26_3d_clone\\13_5_session18_tps\\assets\\scripts\\thirdpersoncamera.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DA8B1329-C2F4-845A-674F-AB5704E3816A}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\thirdpersoncamera.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DA8B1329-C2F4-845A-674F-AB5704E3816A}|Assembly-CSharp.csproj|d:\\backup unity\\3_7_26_3d_clone\\13_5_session18_tps\\assets\\scripts\\mainmenu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DA8B1329-C2F4-845A-674F-AB5704E3816A}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\mainmenu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 4,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "CameraBehaviour.cs",
+              "DocumentMoniker": "D:\\backup unity\\3_7_26_3D_Clone\\13_5_session18_TPS\\Assets\\Scripts\\CameraBehaviour.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\CameraBehaviour.cs",
+              "ToolTip": "D:\\backup unity\\3_7_26_3D_Clone\\13_5_session18_TPS\\Assets\\Scripts\\CameraBehaviour.cs",
+              "RelativeToolTip": "Assets\\Scripts\\CameraBehaviour.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-03T06:06:23.176Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "PlayerBehavior.cs",
+              "DocumentMoniker": "D:\\backup unity\\3_7_26_3D_Clone\\13_5_session18_TPS\\Assets\\Scripts\\PlayerBehavior.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\PlayerBehavior.cs",
+              "ToolTip": "D:\\backup unity\\3_7_26_3D_Clone\\13_5_session18_TPS\\Assets\\Scripts\\PlayerBehavior.cs",
+              "RelativeToolTip": "Assets\\Scripts\\PlayerBehavior.cs",
+              "ViewState": "AgIAAHsAAAAAAAAAAAAUwJIAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-03T06:05:59.025Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "GameBehavior.cs",
+              "DocumentMoniker": "D:\\backup unity\\3_7_26_3D_Clone\\13_5_session18_TPS\\Assets\\Scripts\\GameBehavior.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\GameBehavior.cs",
+              "ToolTip": "D:\\backup unity\\3_7_26_3D_Clone\\13_5_session18_TPS\\Assets\\Scripts\\GameBehavior.cs",
+              "RelativeToolTip": "Assets\\Scripts\\GameBehavior.cs",
+              "ViewState": "AgIAAIkAAAAAAAAAAAAUwKAAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-03T06:05:35.623Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "ThirdPersonCamera.cs",
+              "DocumentMoniker": "D:\\backup unity\\3_7_26_3D_Clone\\13_5_session18_TPS\\Assets\\Scripts\\ThirdPersonCamera.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\ThirdPersonCamera.cs",
+              "ToolTip": "D:\\backup unity\\3_7_26_3D_Clone\\13_5_session18_TPS\\Assets\\Scripts\\ThirdPersonCamera.cs",
+              "RelativeToolTip": "Assets\\Scripts\\ThirdPersonCamera.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-03T05:58:16.846Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "LevelManager.cs",
+              "DocumentMoniker": "D:\\backup unity\\3_7_26_3D_Clone\\13_5_session18_TPS\\Assets\\Scripts\\LevelManager.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\LevelManager.cs",
+              "ToolTip": "D:\\backup unity\\3_7_26_3D_Clone\\13_5_session18_TPS\\Assets\\Scripts\\LevelManager.cs",
+              "RelativeToolTip": "Assets\\Scripts\\LevelManager.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-03T05:49:39.622Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "MainMenu.cs",
+              "DocumentMoniker": "D:\\backup unity\\3_7_26_3D_Clone\\13_5_session18_TPS\\Assets\\Scripts\\MainMenu.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\MainMenu.cs",
+              "ToolTip": "D:\\backup unity\\3_7_26_3D_Clone\\13_5_session18_TPS\\Assets\\Scripts\\MainMenu.cs",
+              "RelativeToolTip": "Assets\\Scripts\\MainMenu.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAADwvxIAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-03T05:20:57.077Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
